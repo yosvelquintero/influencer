@@ -1,0 +1,8 @@
+{
+  "name": "influencer",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular",
+  "pro_id": "61ce62c3"
+}
