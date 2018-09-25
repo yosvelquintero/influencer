@@ -1,18 +1,21 @@
-<!--
-  Generated template for the WelcomePage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>welcome</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
-
 <ion-content padding>
+  <div id="welcome" text-center>
+    <ion-img src="/assets/imgs/logo-welcome.png" alt="CastingAsia" width="186" height="111"></ion-img>
+    <p>Discover new adn exciting brands to work with through CastingAsia's extensive network.</p>
 
+    <button
+      ion-button
+      color="login-button-facebook"
+      block
+      (click)="signInWith('facebook')">
+      <ion-icon name="logo-facebook"></ion-icon> &nbsp; Sing in with Facebook
+    </button>
+    <button
+      ion-button
+      color="login-button-instagram"
+      block
+      (click)="signInWith('instagram')">
+      <ion-icon name="logo-instagram"></ion-icon> &nbsp; Sing in with Instagram
+    </button>
+  </div>
 </ion-content>
