@@ -4,34 +4,36 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
-import { AboutPage } from '../pages/about/about';
-import { ContactPage } from '../pages/contact/contact';
-import { HomePage } from '../pages/home/home';
-import { TabsPage } from '../pages/tabs/tabs';
+import { WelcomePageModule } from '../pages/welcome/welcome.module';
+import { CampaignsPageModule } from '../pages/campaigns/campaigns.module';
+import { ProfilePageModule } from '../pages/profile/profile.module';
+import { ReportsPageModule } from '../pages/reports/reports.module';
+import { PaymentsPageModule } from '../pages/payments/payments.module';
+import { ContactPageModule } from '../pages/contact/contact.module';
 import { MyApp } from './app.component';
-import { WelcomePage } from '../pages/welcome/welcome';
+import { TabsPage } from '../pages/tabs/tabs';
+
+
 
 @NgModule({
   declarations: [
     MyApp,
-    AboutPage,
-    ContactPage,
-    HomePage,
-    TabsPage,
-    WelcomePage
+    TabsPage
   ],
   imports: [
     BrowserModule,
+    WelcomePageModule,
+    ProfilePageModule,
+    CampaignsPageModule,
+    ReportsPageModule,
+    PaymentsPageModule,
+    ContactPageModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    AboutPage,
-    ContactPage,
-    HomePage,
-    TabsPage,
-    WelcomePage
+    TabsPage
   ],
   providers: [
     StatusBar,

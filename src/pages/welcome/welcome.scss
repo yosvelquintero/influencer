@@ -7,7 +7,7 @@ page-welcome {
       color: #666;
     }
 
-    button + button {
+    button:last-child {
       margin-top: 10px;
     }
   }
