@@ -1,18 +1,29 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
+import { Facebook } from '@ionic-native/facebook';
+
 import { TabsPage } from '../tabs/tabs';
 
 @IonicPage()
 @Component({
   selector: 'page-welcome',
-  templateUrl: 'welcome.html',
+  templateUrl: 'welcome.html'
 })
 export class WelcomePage {
 
+  isLoggedIn: boolean = false;
+
   constructor(
     public navCtrl: NavController,
-    public navParams: NavParams
-  ) { }
+    public navParams: NavParams,
+    private platform: Platform,
+    private fb: Facebook
+  ) {
+    this.platform.ready().then(() => {
+      console.log('platform.ready()');
+      this.handleIsLoggedIn();
+    });
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad WelcomePage');
@@ -24,19 +35,35 @@ export class WelcomePage {
       instagram: () => this.signInWithInstagram()
     }
 
-    // TODO:
-    // Should be implemented authentication
-    this.navCtrl.push(TabsPage);
-
     return options[socialNetwork]();
   }
 
   signInWithFacebook() {
     console.log('signIn with Facebook!');
+    this.fb
+      .login(['public_profile', 'user_friends', 'email'])
+      .then(response => {
+        this.isLoggedIn  = response.status === 'connected';
+        if (this.isLoggedIn) {
+          this.navCtrl.push(TabsPage);
+        }
+      })
+      .catch(error => console.error('Error logging into Facebook', error));
   }
 
   signInWithInstagram() {
     console.log('signIn with Instagram!');
+    this.navCtrl.push(TabsPage);
+  }
+
+  private handleIsLoggedIn() {
+    this.fb
+      .getLoginStatus()
+      .then(response => {
+        console.log(response.status);
+        this.isLoggedIn = response.status === 'connect';
+      })
+      .catch(error => console.error('Response error', error));
   }
 
 }

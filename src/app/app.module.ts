@@ -12,6 +12,7 @@ import { PaymentsPageModule } from '../pages/payments/payments.module';
 import { ContactPageModule } from '../pages/contact/contact.module';
 import { MyApp } from './app.component';
 import { TabsPage } from '../pages/tabs/tabs';
+import { Facebook } from '@ionic-native/facebook';
 
 
 
@@ -38,7 +39,11 @@ import { TabsPage } from '../pages/tabs/tabs';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {
+      provide: ErrorHandler,
+      useClass: IonicErrorHandler
+    },
+    Facebook
   ]
 })
 export class AppModule {}
