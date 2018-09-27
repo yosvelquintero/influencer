@@ -7,12 +7,12 @@
 
 <ion-content padding>
   <div *ngIf="isLoggedIn">
-    <h2>Hi, {{user.name}} ({{user.email}})</h2>
+    <h2>Hi, {{user.name}}</h2>
     <p>
-      Gender: {{user.gender}}
+      Email: {{user.email}}
     </p>
     <p>
-      <img src="{{user.picture.data.url}}" width="100" alt="{{user.name}}" />
+      <img src="{{user.picture.data.url}}" width="{{user.picture.data.width}}" height="{{user.picture.data.height}}" alt="{{user.name}}" />
     </p>
     <p>
       <button ion-button icon-right (click)="logout()">
@@ -20,9 +20,4 @@
       </button>
     </p>
   </div>
-
-  <h3>Testing logout button:</h3>
-  <button ion-button icon-right (click)="logoutRedirectToWelcome()">
-    Logout
-  </button>
 </ion-content>

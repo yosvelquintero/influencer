@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { App, IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { Facebook } from '@ionic-native/facebook';
+import { UserModel } from './user.model';
 
 @IonicPage()
 @Component({
@@ -10,7 +11,7 @@ import { Facebook } from '@ionic-native/facebook';
 export class ProfilePage {
 
   isLoggedIn: boolean = false;
-  user: any;
+  user: UserModel;
 
   constructor(
     public navCtrl: NavController,
@@ -19,10 +20,12 @@ export class ProfilePage {
     private platform: Platform,
     private fb: Facebook
   ) {
+    this.user = new UserModel();
+
     this.platform
       .ready()
       .then(() => {
-        console.log('platform.ready()');
+        console.log('..... platform.ready()');
         this.handleIsLoggedIn();
       })
       .catch(error => console.error('Error', error));
@@ -35,21 +38,21 @@ export class ProfilePage {
   logout() {
     this.fb
       .logout()
-      .then(() => this.isLoggedIn = false)
+      .then(() => {
+        const root = this.app.getRootNav();
+        this.isLoggedIn = false;
+        root.popToRoot();
+      })
       .catch(error => console.error('Error', error));
   }
 
-  logoutRedirectToWelcome() {
-    const root = this.app.getRootNav();
-    root.popToRoot();
-  }
-
-  private handleIsLoggedIn() {
+  private handleIsLoggedIn(): void {
     this.fb
       .getLoginStatus()
       .then(response => {
         console.log(response.status);
-        this.isLoggedIn = response.status === 'connect';
+        console.log('response.authResponse.userID', response.authResponse.userID);
+        this.isLoggedIn = response.status === 'connected';
         if (this.isLoggedIn) {
           this.getUserDetail(response.authResponse.userID);
         }
@@ -57,11 +60,11 @@ export class ProfilePage {
       .catch(error => console.error('Response error', error));
   }
 
-  private getUserDetail(userId: string) {
+  private getUserDetail(userId: string): void {
     this.fb
       .api(`/${userId}/?fields=id,email,name,picture,gender`, ['public_profile'])
       .then(response => {
-        console.log('getUserDetail:', response);
+        console.log('getUserDetail:', JSON.stringify(response));
         this.user = response;
       })
       .catch(error => console.error('Response error', error));
