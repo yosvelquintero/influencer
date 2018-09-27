@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
+import { App, IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { Facebook } from '@ionic-native/facebook';
 
 @IonicPage()
@@ -15,13 +15,17 @@ export class ProfilePage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+    private app: App,
     private platform: Platform,
     private fb: Facebook
   ) {
-    this.platform.ready().then(() => {
-      console.log('platform.ready()');
-      this.handleIsLoggedIn();
-    });
+    this.platform
+      .ready()
+      .then(() => {
+        console.log('platform.ready()');
+        this.handleIsLoggedIn();
+      })
+      .catch(error => console.error('Error', error));
   }
 
   ionViewDidLoad() {
@@ -31,8 +35,13 @@ export class ProfilePage {
   logout() {
     this.fb
       .logout()
-      .then(response => this.isLoggedIn = false)
-      .catch(error => console.error('Error logout from Facebook', error));
+      .then(() => this.isLoggedIn = false)
+      .catch(error => console.error('Error', error));
+  }
+
+  logoutRedirectToWelcome() {
+    const root = this.app.getRootNav();
+    root.popToRoot();
   }
 
   private handleIsLoggedIn() {

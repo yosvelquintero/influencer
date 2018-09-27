@@ -14,15 +14,20 @@ export class MyApp {
   rootPage: any = WelcomePage;
 
   constructor(
-    platform: Platform,
-    statusBar: StatusBar,
-    splashScreen: SplashScreen
+    private platform: Platform,
+    private statusBar: StatusBar,
+    private splashScreen: SplashScreen
   ) {
-    platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
-      statusBar.styleDefault();
-      splashScreen.hide();
-    });
+    this.platform
+      .ready()
+      .then(() => this.handleStatusBarAndSplashScreen())
+      .catch(error => console.error('Error', error));
+  }
+
+  private handleStatusBarAndSplashScreen() {
+    // Okay, so the platform is ready and our plugins are available.
+    // Here you can do any higher level native things you might need.
+    this.statusBar.styleDefault();
+    this.splashScreen.hide();
   }
 }

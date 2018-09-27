@@ -19,10 +19,13 @@ export class WelcomePage {
     private platform: Platform,
     private fb: Facebook
   ) {
-    this.platform.ready().then(() => {
-      console.log('platform.ready()');
-      this.handleIsLoggedIn();
-    });
+    this.platform
+      .ready()
+      .then(() => {
+        console.log('platform.ready()');
+        this.handleIsLoggedIn();
+      })
+      .catch(error => console.error('Error', error));
   }
 
   ionViewDidLoad() {
