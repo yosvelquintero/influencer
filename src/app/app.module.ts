@@ -14,8 +14,6 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { WelcomePageModule } from '../pages/welcome/welcome.module';
 import { MyApp } from './app.component';
 
-
-
 @NgModule({
   declarations: [
     MyApp,

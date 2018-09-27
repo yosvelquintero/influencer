@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { App, IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { Facebook } from '@ionic-native/facebook';
-import { UserModel } from './user.model';
+import { UserModel } from '../../models/user.model';
 
 @IonicPage()
 @Component({
@@ -11,7 +11,7 @@ import { UserModel } from './user.model';
 export class ProfilePage {
 
   isLoggedIn: boolean = false;
-  user: UserModel;
+  user: UserModel = new UserModel();
 
   constructor(
     public navCtrl: NavController,
@@ -20,14 +20,9 @@ export class ProfilePage {
     private platform: Platform,
     private fb: Facebook
   ) {
-    this.user = new UserModel();
-
     this.platform
       .ready()
-      .then(() => {
-        console.log('..... platform.ready()');
-        this.handleIsLoggedIn();
-      })
+      .then(() => this.handleIsLoggedIn())
       .catch(error => console.error('Error', error));
   }
 
@@ -43,15 +38,13 @@ export class ProfilePage {
         this.isLoggedIn = false;
         root.popToRoot();
       })
-      .catch(error => console.error('Error', error));
+      .catch(error => console.error('Response error', error));
   }
 
   private handleIsLoggedIn(): void {
     this.fb
       .getLoginStatus()
       .then(response => {
-        console.log(response.status);
-        console.log('response.authResponse.userID', response.authResponse.userID);
         this.isLoggedIn = response.status === 'connected';
         if (this.isLoggedIn) {
           this.getUserDetail(response.authResponse.userID);
@@ -63,10 +56,7 @@ export class ProfilePage {
   private getUserDetail(userId: string): void {
     this.fb
       .api(`/${userId}/?fields=id,email,name,picture,gender`, ['public_profile'])
-      .then(response => {
-        console.log('getUserDetail:', JSON.stringify(response));
-        this.user = response;
-      })
+      .then(response => this.user = response)
       .catch(error => console.error('Response error', error));
   }
 
