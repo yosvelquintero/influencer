@@ -10,7 +10,6 @@ import { TabsPage } from '../tabs/tabs';
   templateUrl: 'welcome.html'
 })
 export class WelcomePage {
-
   isLoggedIn: boolean = false;
 
   constructor(
@@ -65,5 +64,4 @@ export class WelcomePage {
       })
       .catch(error => console.error('Response error', error));
   }
-
 }

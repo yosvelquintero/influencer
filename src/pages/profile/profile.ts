@@ -9,7 +9,6 @@ import { UserModel } from '../../models/user.model';
   templateUrl: 'profile.html'
 })
 export class ProfilePage {
-
   isLoggedIn: boolean = false;
   user: UserModel = new UserModel();
 
@@ -59,5 +58,4 @@ export class ProfilePage {
       .then(response => this.user = response)
       .catch(error => console.error('Response error', error));
   }
-
 }
