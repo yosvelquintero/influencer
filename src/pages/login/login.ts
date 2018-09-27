@@ -6,10 +6,10 @@ import { TabsPage } from '../tabs/tabs';
 
 @IonicPage()
 @Component({
-  selector: 'page-welcome',
-  templateUrl: 'welcome.html'
+  selector: 'page-login',
+  templateUrl: 'login.html'
 })
-export class WelcomePage {
+export class LoginPage {
   isLoggedIn: boolean = false;
 
   constructor(
@@ -25,7 +25,7 @@ export class WelcomePage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad WelcomePage');
+    console.log('ionViewDidLoad LoginPage');
   }
 
   signInWith(socialNetwork: string): void {

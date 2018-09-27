@@ -11,7 +11,7 @@ import { PaymentsPageModule } from '../pages/payments/payments.module';
 import { ProfilePageModule } from '../pages/profile/profile.module';
 import { ReportsPageModule } from '../pages/reports/reports.module';
 import { TabsPage } from '../pages/tabs/tabs';
-import { WelcomePageModule } from '../pages/welcome/welcome.module';
+import { LoginPageModule } from '../pages/login/login.module';
 import { MyApp } from './app.component';
 
 @NgModule({
@@ -21,7 +21,7 @@ import { MyApp } from './app.component';
   ],
   imports: [
     BrowserModule,
-    WelcomePageModule,
+    LoginPageModule,
     ProfilePageModule,
     CampaignsPageModule,
     ReportsPageModule,
